@@ -1,0 +1,190 @@
+
+    <div>
+
+        <label id="lblEnterMessage">Enter Token: </label>
+        <input type="text" id="txtEnterMessage" />
+        <br /><br />
+        <label id="lblEnterMessage">Enter ZoneId: </label>
+        <input type="text" id="txtZoneId" />
+        <input type="button" id="btnJoin"  value="Join Zone" />
+        <br /><br />
+        <label id="lblEnterMessage">Click here to start Game</label>
+        <input type="button" id="btnAssign" value="Start Game" />
+        <br />
+        <br />
+        <label id="lblEnterMessage">Enter Choice Value:</label>
+        <input type="text" id="txtAnswer" />
+        <input type="button" id="btnSubmitAnswer" value="Send Answer" />
+
+
+
+        <ul id="ulChatMessages"></ul>
+
+           <script type="text/javascript">
+        $(function () {
+
+            var vm = {};
+            vm.accessToken = '';
+            vm.serviceBase = 'http://g5api.azurewebsites.net';
+            vm.url = '';
+            vm.huburl = '';
+            vm.GameTableID = 0;
+
+            $('#btnAssign').attr('disabled', 'disabled');
+
+            $('#btnJoin').click(function (e) {
+               
+                $('#btnAssign').attr('disabled', 'disabled');
+
+
+                if ($('#txtEnterMessage').val() == '') {
+                    alert("Enter Token");
+                    return;
+                }
+                if ($('#txtZoneId').val() == '') {
+                    alert("Enter ZoneId");
+                    return;
+                }
+
+                vm.url = '/api/Join/' + $('#txtZoneId').val();
+
+                vm.accessToken = $('#txtEnterMessage').val();
+                $.ajax({
+                    url: vm.serviceBase + vm.url,
+                    type: 'GET',
+                    headers: { 'Authorization': 'Bearer ' + vm.accessToken },
+                    dataType: 'json'
+                }).fail(function () {
+
+                }).done(function (r) {
+                    
+                    if (r.isError) {
+                        alert(r.message);
+                        return;
+                    }
+                    var result = r.result;
+                    alert(result.url);
+                    vm.huburl = result.url;
+                    vm.GameTableID = result.gameTableID;
+                    $('#btnAssign').removeAttr('disabled');
+                });
+            });
+
+
+        //  /*  var myChatHub = $.connection.myChatHub;
+        //    myChatHub.client.newMessageReceived = function (message) {
+        //        $('#ulChatMessages').append('<li>' + message + '</li>');
+        //    }
+        //    $.connection.hub.url = "http://localhost:32555/SitnGo";
+		//	vm.hub = vm.connection.createHubProxy('gamezone');
+        //    $.connection.hub.start().done(function () {
+        //        $('#btnSubmit').click(function (e) {
+        //            myChatHub.server.broadcastMessageToAll($('#txtEnterMessage').val(), 'Web user');
+        //        });
+        //    }).fail(function (error) {
+        //        console.error(error);
+        //    });;
+        //    */
+
+            $('#btnAssign').click(function (e) {
+
+                    // console.log(vm.accessToken);
+                
+                   vm.connection = $.hubConnection(vm.huburl, { useDefaultPath: false });
+                   vm.connection.qs = { 'access_token': vm.accessToken };
+                   vm.hub = vm.connection.createHubProxy('sitngo');
+                   vm.connection.logging = true;
+
+
+                   vm.hub.on("sendMessage", function (zoneMsg) {
+
+                       console.log(zoneMsg);
+                       vm.ShowMessage(zoneMsg);
+
+                   });
+                   vm.hub.on("sendPlayerList", function (PlayList) {
+
+                       console.log(PlayList);
+                       vm.ShowMessage(JSON.stringify(PlayList));
+
+                   });
+                   vm.hub.on("startGame", function (data) {
+                       console.log("start Game : " + data);
+                       vm.showMessage(JSON.stringify(data));
+                   });
+                   vm.hub.on("sendPlayerWallet", function (Question) {
+
+                       console.log(Question);
+                       vm.ShowMessage(JSON.stringify(Question));
+
+                   });
+
+                   vm.hub.on("sendPool", function (poolAmount) {
+
+                       console.log(poolAmount);
+                       vm.ShowMessage(JSON.stringify(poolAmount));
+
+                   });
+                   vm.hub.on("sendQuestion", function (Question) {
+
+                       console.log(Question);
+                       vm.ShowMessage(JSON.stringify(Question));
+
+                   });
+
+                   vm.hub.on("sendAnswer", function (Choice) {
+
+                       console.log(Choice);
+                       vm.ShowMessage(JSON.stringify(Choice));
+
+                   });
+
+                   vm.hub.on("sendGameResults", function (Choice) {
+
+                       console.log(Choice);
+                       vm.ShowMessage(JSON.stringify(Choice));
+
+                   });
+                   vm.hub.on("sendPoolAmount", function (poolAmount) {
+
+                       console.log(poolAmount);
+                       vm.ShowMessage(JSON.stringify(poolAmount));
+
+                   });
+                   vm.hub.on("sendUserWallet", function (WalletData) {
+
+                       console.log(WalletData);
+                       vm.ShowMessage(JSON.stringify(WalletData));
+
+                   });
+                   vm.hub.on("sendUserCountdownMsg", function (userCountDownMsg) {
+
+                       console.log(userCountDownMsg);
+                       vm.ShowMessage(JSON.stringify(userCountDownMsg));
+
+                   });
+                   
+                   vm.connection.start({jsonp:true}).done(function () {
+                       console.log("start")
+                       vm.ShowMessage("start");
+                       vm.hub.invoke("JoinTable", vm.GameTableID).done(function (data) {
+                           console.log(data);
+                           vm.ShowMessage(data);
+                       });
+
+                   }).fail(function (error) {
+                       console.error(error);
+                   });
+                   vm.ShowMessage = function (data) {
+
+                       $('#ulChatMessages').append('<li>' + JSON.stringify(data) + '</li>');
+                   }
+               });
+
+        });
+
+        
+        
+    </script>
+         
+    </div>

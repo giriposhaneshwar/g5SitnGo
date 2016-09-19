@@ -1,0 +1,210 @@
+.help-block {
+    font-size: 12px;
+}
+.loginContainer, .registrationform{
+    display: block;
+    border: 1px solid #ccc;
+    padding: 15px;
+    box-shadow: 2px 2px 3px #ccc;
+}
+.loginContainer h3, .registrationform h3{
+    margin-top: 0px;
+}
+.loginContainer *, .registrationform h3{
+    outline: none;
+}
+span.fieldMesssage{
+    display: block;
+    padding-top:5px;
+}
+span.fieldMesssage .err{
+    color: #c00;
+    font-size: 0.86em;
+}
+.registrationform input[type="email"].ng-invalid-email,
+.registrationform input[type="email"].ng-empty.ng-touched{
+    border: 1px solid #c00;
+    box-shadow: 0px 0px 3px #c00;
+}
+.registrationform input[type="password"].ng-empty.ng-touched{
+    border: 1px solid #c00;
+    box-shadow: 0px 0px 3px #c00;
+}
+
+
+.error-message{
+    display: none;
+    border: 1px solid #000;
+    width: auto;
+    margin: 0px auto;
+    margin-top: 10px;
+    z-index: 3;
+    position: absolute;
+    right: -43%;
+    top: -10px;
+    background-color: #000;
+    color: #fff;
+    padding: 5px 8px;
+}
+.error-message:after {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-right-color: #000;
+    border-width: 10px;
+    margin-top: -10px;
+}
+body .error-message:first-child{
+    display: block;
+}
+
+.match{
+    border: 1px solid greenyellow;
+}
+.responseBox{
+    font-size: 0.93em;
+    padding-bottom: 8px;
+}
+
+#dashboard {
+    position: relative;
+    border: 1px solid black;
+    height: 85px;
+    text-align: center;
+    font-size: 35px;
+    font-style: italic;
+    margin: 2px 2px 0px 2px;
+}
+
+
+p {
+    margin-top: 22px;
+}
+
+#box1 {
+
+    height: 250px;
+    width: 350px;
+    border-radius: 30px;
+    background-color: #549dd8;
+    margin-left: 125px;
+    margin-top: 25px;
+}
+
+
+#adjt1 {
+    position: relative;
+    font-size: 45px;
+    text-align: center;
+    top:80px;
+    background-color: #549dd8;
+    margin-left: 85px;
+    color: white;
+    border-color: #549dd8;
+}
+
+
+
+#box2 {
+    position: absolute;
+    height: 250px;
+    width: 350px;
+    border-radius: 30px;
+    background-color: #549dd8;
+    left: 850px;
+    top: 111px;
+
+}
+
+
+#adjt2 {
+    position: relative;
+    font-size: 45px;
+    text-align: center;
+    top:80px;
+    background-color: #549dd8;
+
+    margin-left: 85px;
+    color: white;
+    border-color: #549dd8;
+    margin-left: 40px;
+}
+.playContainer{
+    display: block;
+    width: 1020px;
+    height: 750px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 3px #888;
+    padding: 10px;
+    margin: 15px auto;
+}
+.playheaderSection{
+    display: block;
+    height: 200px;
+    position: relative;
+}
+.playheaderSection ul>li{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+.playBodySection{
+    display: block;
+    min-height: 450px;
+    position: relative;
+}
+.playBodySection>.question{
+    display: block;
+    width: 80%;
+    height: 250px;
+    margin: 0px auto;
+    border: 1px solid;
+    font-size: 1.2em;
+}
+.playFooterSection{
+    display: block;
+    min-height: 100px;
+    position: relative;
+}
+.playFooterSection .selfPlayer{
+    position:absolute;
+    left: 480;
+    top: 10;
+    width: 50;
+    height: 50;
+}
+.playFooterSection .selfPlayer>img,
+.playFooterSection .selfPlayer>i,
+.playFooterSection .selfPlayer>span{
+    display: block;
+}
+.playFooterSection .selfPlayer>i{
+    margin-top: -10px;
+}
+
+.choices>ul{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    width: 80%;
+    display: block;
+    margin: 0px auto;
+}
+.choices>ul>li.opts{
+    display: inline-block;
+    border: 1px solid #ccc;
+    width: 47%;
+    margin: 10px;
+    padding: 15px;
+    text-align: center;
+    background-color: #123075;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}

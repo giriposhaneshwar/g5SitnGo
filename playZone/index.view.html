@@ -1,0 +1,58 @@
+<div class="col-xs-12 col-md-12">
+    <header id="header" class="">
+        <div style="text-align: center;" class="headerDiv col-md-12">
+            <div class="col -md-10 headerLogo">
+                <div>
+                    <p class="headerTitle">Gamy 5</p>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+
+<div>
+    <div>
+        <div class="container">
+            <div class="row" ng-controller="PlayZone.IndexController">
+                <div  class="col-sm-3 col-sm-offset-1">
+                    <h3>Subjects</h3>
+                    <div class="col-sm-12 menu mainmenu" ng-repeat="subject in subjects"> 
+                            <div><a href="javascript:void(0)" class="open_zone" id={{subject}} ng-click="showFlavors($event);">{{ subject }}</a></div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <h3>Flavors</h3>
+                    <div class="col-sm-12 menu submenu" ng-show="showTopics">
+                        
+                        <div ng-show="mathsTopics" ng-repeat="math in mathsFlavors">  
+                            <div><a href="javascript:void(0)" ng-click="showStakes($event)" class="open_zone" id={{math}}> {{ math }}</a></div>
+                        </div>
+                        <div ng-show="physicsTopics" ng-repeat="physics in physicsFlavors">  
+                            <div><a href="javascript:void(0)" ng-click="showStakes($event)" class="open_zone" id={{physics}}> {{ physics }}</a></div>
+                        </div>
+                        <div ng-show="chemistryTopics" ng-repeat="chemistry in chemistryFlavors">  
+                            <div><a href="javascript:void(0)" ng-click="showStakes($event)" class="open_zone" id={{chemistry}}> {{ chemistry }}</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 menu submenu" ng-show="showStart">
+                    <h3>Stakes</h3>                    
+                        <div ng-show="stakes" ng-repeat="stake in stakes">  
+                            <div><a href="javascript:void(0)" class="open_zone" id={{stake}}> {{ stake }}</a></div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+</div>
+<script>
+    $('.mainmenu a').click(function () {
+        $('.mainmenu .active').removeClass('active');
+        $(this).addClass('active');
+    });
+    $('.submenu a').click(function () {
+        $('.submenu .active').removeClass('active');
+        $(this).addClass('active');
+    });
+    
+</script>

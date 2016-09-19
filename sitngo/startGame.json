@@ -1,0 +1,46 @@
+{
+ "GameTableId" : 4,
+ "Player": {  "TableId": "4",
+  "UserWallet": { 
+    "FreeCoins":1000,
+    "EarnAmount":50,
+    "PaidAmount":500
+    },
+  "UserId": "24",
+  "UserName": "spayyavula",
+  "Email": "spayyavula@gmail.com",
+  "IsPaidUser": true,
+  "ProfileImage": "",
+  "IsPANVerified": true,
+  "DisplayName": "unicorn",
+  "Status": "ACTIVE",
+  "ImagePath": "",
+  "ConnectionId": ""  },
+  "Opponents": [  {   "TableId": "4",
+       "UserWallet": { 
+         "FreeCoins":2000,
+         "EarnAmount":60,
+         "PaidAmount":1000
+         },
+       "UserId": "roger",
+       "ProfileImage": "",
+       "DisplayName": "lucky7",
+       "Status": "WAIT",
+       "ConnectionId": "" 
+	   },
+       {   
+       "TableId": "4",
+       "UserWallet": { 
+         "FreeCoins":4000,
+         "EarnAmount":70,
+         "PaidAmount":2000
+         },
+       "UserId": "luckystar",
+       "ProfileImage": "",
+       "DisplayName": "",
+       "Status": "ACTIVE",
+       "ConnectionId": "" 
+	   }],
+     "Message":"Serving Question in 10 seconds"
+}
+

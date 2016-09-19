@@ -1,0 +1,13 @@
+<div class="playheaderSection">
+    <div class="poolAmt">{{players.PoolAmount}}</div>
+    <!--{{players| json}}-->
+    <div style="position:relative">
+        <ul>
+            <li ng-repeat="player in players.playersInfo" style="position:absolute" ng-style="{left:player.playerPosition.left, top:player.playerPosition.top, width:player.playerPosition.width, height:player.playerPosition.height}">
+                <img ng-src="{{player.player.ProfileImage}}" class="img-circle" alt="Players"/>
+                <i>{{player.player.UserWallet.FreeCoins}}</i>
+                <span>{{player.player.DisplayName}}</span>
+            </li>
+        </ul>
+    </div>
+</div>

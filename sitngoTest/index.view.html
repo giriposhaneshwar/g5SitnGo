@@ -1,0 +1,273 @@
+
+
+    <div>
+
+        <label id="lblEnterMessage">Enter Token: </label>
+        <input type="text" id="txtEnterMessage" />
+        <br /><br />
+        <label id="lblEnterMessage">Enter ZoneId: </label>
+        <input type="text" id="txtZoneId" />
+        <input type="button" id="btnJoin"  value="Join Zone" />
+        <br /><br />
+        <label id="lblEnterMessage">Click here to start Game</label>
+        <input type="button" id="btnAssign" value="Start Game" />
+        <br />
+        <br />
+        <input type="button" id="btnClose" value="Close" />
+        <label id="lblEnterMessage">Enter Choice Value:</label>
+        <input type="text" id="txtAnswer" />
+        <input type="button" id="btnSubmitAnswer" value="Send Answer" />
+        <br /><br />
+        <input type="button" id="btnClear" value="Clear Tables" />
+
+
+
+        <ul id="ulChatMessages"></ul>
+
+        
+   
+    </div>
+
+     <script type="text/javascript">
+        $(function () {
+
+            var vm = {};
+            vm.accessToken = '';
+           vm.serviceBase = 'http://g5api.azurewebsites.net';
+           //vm.serviceBase = 'http://localhost:1793';
+            vm.url = '';
+            vm.huburl = '';
+            vm.GameTableID = 0;
+            vm.PlayerId = 0;
+            vm.GameId=0;
+
+            
+            
+            $('#btnAssign').attr('disabled', 'disabled');
+
+            $('#btnJoin').click(function (e) {
+                e.preventDefault();
+                $('#btnAssign').attr('disabled', 'disabled');
+
+
+                if ($('#txtEnterMessage').val() == '') {
+                    alert("Enter Token");
+                    return;
+                }
+                if ($('#txtZoneId').val() == '') {
+                    alert("Enter ZoneId");
+                    return;
+                }
+
+                vm.url = '/api/Join/' + $('#txtZoneId').val();
+
+                vm.accessToken = $('#txtEnterMessage').val();
+                $.ajax({
+                    url: vm.serviceBase + vm.url,
+                    type: 'GET',
+                    headers: { 'Authorization': 'Bearer ' + vm.accessToken },
+                    dataType: 'json'
+                }).fail(function (r) {
+                    alert(JSON.stringify(r));
+                }).done(function (r) {
+                    
+                    alert(JSON.stringify(r));
+                    if (r.isError) {
+                        alert(r.message);
+                        return;
+                    }
+                    var result = r.result;
+                    alert(result.url);
+                    vm.huburl = result.url;
+                    vm.GameTableID = result.gameTableID;
+                    vm.PlayerId = result.playerId;
+                    $('#btnAssign').removeAttr('disabled');
+                });
+                return false;
+            });
+
+
+       
+           
+            
+            $('#btnAssign').click(function (e) {
+
+                    // console.log(vm.accessToken);
+                
+                   vm.connection = $.hubConnection(vm.huburl, {transport: ['webSockets','longPolling', 'foreverFrame', 'serverSentEvents'], jsonp: true, xdomain: true,  useDefaultPath: false  });
+                   vm.connection.qs = { 'access_token': vm.accessToken };
+                   vm.hub = vm.connection.createHubProxy('sitngo');
+                   vm.connection.logging = true;
+
+
+                   
+                   vm.hub.on("playerJoinMessage", function (playerJoin) {
+
+                       console.log(playerJoin);
+                       vm.ShowMessage(JSON.stringify(playerJoin));
+
+                   });
+
+                   //vm.hub.on("sendPlayerWallet", function (Question) {
+
+                   //    console.log(Question);
+                   //    vm.ShowMessage(JSON.stringify(Question));
+
+                   //});
+                    
+                   vm.hub.on("sendGameStart", function (GameStartData) {
+
+                       console.log(GameStartData);
+                       vm.ShowMessage(JSON.stringify(GameStartData));
+                       vm.GameId = GameStartData.GameId;
+
+                   });
+                   
+                   //vm.hub.on("sendPoolAmount", function (poolAmount) {
+
+                   //    console.log(poolAmount);
+                   //    vm.ShowMessage(JSON.stringify(poolAmount));
+
+                   //});
+                   vm.hub.on("sendQuestion", function (Question) {
+
+                       console.log(Question);
+                       vm.ShowMessage(JSON.stringify(Question));
+
+                   });
+
+                   vm.hub.on("sendAnswer", function (Choice) {
+
+                       console.log(Choice);
+                       vm.ShowMessage(JSON.stringify(Choice));
+
+                   });
+
+                   vm.hub.on("sendGameResults", function (gameResults) {
+
+                       console.log(gameResults);
+                       vm.ShowMessage(JSON.stringify(gameResults));
+
+                   });
+
+                  
+                   //vm.hub.on("sendUserWallet", function (WalletData) {
+
+                   //    console.log(WalletData);
+                   //    vm.ShowMessage(JSON.stringify(WalletData));
+
+                   //});
+
+                   vm.hub.on("sendReassignPlayer", function (ReassignUserTable) {
+
+                       console.log(ReassignUserTable);
+                       vm.ShowMessage(JSON.stringify(ReassignUserTable));
+
+                   });
+
+                   
+                   vm.hub.on("sendExitMessage", function (message) {
+
+                       console.log(message);
+                       vm.ShowMessage(JSON.stringify(message));
+                       vm.connection.Stop();
+
+                   });
+                   
+
+
+                   vm.hub.on("sendMessage", function (zoneMsg) {
+
+                       console.log(zoneMsg);
+                       vm.ShowMessage(zoneMsg);
+
+                   });
+
+                   vm.hub.on("sendDebugMessage", function (zoneMsg) {
+
+                       console.log(zoneMsg);
+                       vm.ShowMessage(zoneMsg);
+
+                   });
+
+                   vm.hub.on("resetGameMessage", function (zoneMsg) {
+
+                       console.log(zoneMsg);
+                       vm.ShowMessage(zoneMsg);
+
+                   });
+                   vm.hub.on("ping", function (result) {
+
+                       vm.hub.invoke("ping").done(function () {
+                           //console.log(data);
+                           //vm.ShowMessage(data);
+                       });
+
+                   });
+                   
+                   vm.connection.start({transport: ['webSockets','longPolling', 'foreverFrame', 'serverSentEvents'], jsonp: true, xdomain: true }).done(function () {
+                       console.log("start")
+                       vm.ShowMessage("start");
+                       vm.hub.invoke("JoinPlayerToTable", vm.GameTableID, vm.PlayerId).done(function (data) {
+                           console.log(data);
+                           vm.ShowMessage(data);
+                       });
+
+                   }).fail(function (error) {
+                       console.error(error);
+                   });
+                   vm.ShowMessage = function (data) {
+
+                       $('#ulChatMessages').append('<li>' + JSON.stringify(data) + '</li>');
+                   }
+                   vm.Exit = function () {
+
+                       if (vm.connection != null)
+                           vm.connection.stop();
+                       else
+                           alert("Connection Does not exist");
+                   }
+
+            });
+
+            $('#btnSubmitAnswer').click(function (e) {
+                if (vm.connection != null)
+                    {
+                    var answer = {};
+                    answer.GameTableId = vm.GameTableID;
+                    answer.GameId = vm.GameId;
+                    answer.ChoiceId = $('#txtAnswer').val();
+                    answer.timetakeninseconds = 20;
+                    answer.IsAnswered = true;
+                    vm.ShowMessage(answer);
+                    console.log("answer");
+                    vm.hub.invoke("SubmitAnswer", answer).done(function (data) {
+                        console.log(data);
+                        vm.ShowMessage(data);
+                    });
+                }
+                else
+                    alert("Connection Does not exist");
+            });
+            $('#btnClear').click(function (e) {
+                if (vm.connection != null) {
+                   
+                    console.log("answer");
+                    vm.hub.invoke("ClearTables").done(function () {
+                        console.log("Cleared");
+                        
+                    });
+                }
+                else
+                    alert("Connection Does not exist");
+            });
+
+            $('#btnClose').click(function (e) {
+                vm.Exit();
+            });
+
+        });
+
+        
+        
+    </script>

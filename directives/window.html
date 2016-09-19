@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+    <head>
+        <!--<link href="assets/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css"/>-->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+        <link href="/app-content/app.css" rel="stylesheet" type="text/css"/>
+        <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
+        <!--        <script type="text/javascript">
+                    window.onload = function () {
+                        alert(1);
+                    }
+                    window.onresize = function () {
+                        alert(2);
+                        window.resizeTo(500, 500);
+                    }
+                    window.onclick = function () {
+                        alert(3);
+                        window.resizeTo(500, 500);
+                    }
+                </script>-->
+        <style>
+            .sngWindow{
+                display: block;
+                position: relative;
+            }
+            .sngHeader, .sngBody, .sngFooter{
+                display: block;
+                background-color: #c00;
+                position: absolute;
+                width: 100%;
+            }
+            .sngHeader{
+                top: 0;
+                left: 0;
+            }
+            .sngFooter{
+                bottom: 0;
+                left: 0;
+            }
+            .sngBody{
+                top: 200px;
+            }
+        </style>
+    </head>
+    <body class="sngWindow">
+
+        <div class="container-fluid">
+
+            <div class="row col-md-12 sngHeader">  
+
+                <div opponents-data="message"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="150">
+                <path  fill-opacity="0" stroke-width="10"  d="M 0 150 q 500 -150 1000 0" stroke="grey"  fill="none" /> 
+                <path id="arc-path" d="M 0 150 q 500 -150 1000 0" stroke="orange" stroke-width="10" fill="none" />
+                Sorry, your browser does not support inline SVG.
+                </svg>
+            </div>
+
+            <div class="row col-md-12 sngBody">
+                <div question-data="message"></div>
+            </div>
+
+            <div class="row col-md-12 sngFooter">        
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="300">
+                <path  fill-opacity="0" stroke-width="10"  d="M 0 150 q 500 150 1000 0" stroke="grey"  fill="none" /> 
+                <path id="reverse-arc-path" d="M 0 150 q 500 150 1000 0" stroke="orange" stroke-width="10" fill="none" />
+                Sorry, your browser does not support inline SVG.
+                </svg>
+                <div self-data="message"></div>
+            </div>
+        </div>
+        <script>
+            var svgPath = document.getElementById('arc-path');
+
+            var path = new ProgressBar.Path(svgPath, {
+                duration: timeToAnswer,
+                easing: 'easeIn'
+            });
+
+            path.animate(1, {
+                duration: timeToAnswer
+            }, function () {
+                console.log('Animation has finished');
+            });
+        </script>
+    </body>
+</html>

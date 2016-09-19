@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+    <head>
+        <title>Gamy5</title>
+        <meta charset="utf-8">
+
+        <!-- bootstrap css -->
+
+        
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/kendo.common.min.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/kendo.bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+
+        <script src="assets/js/d3.js" charset="utf-8"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.0.min.js"></script>
+        <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
+
+
+        <!-- application css -->
+        <link href="app-content/app.css" rel="stylesheet" />
+
+        <link href="sitngo/sitngo.css" rel="stylesheet" />
+
+        <!-- Math JAX -->
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                processEscapes: true
+                }
+            });
+        </script>
+
+        <script type="text/javascript" async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        
+    
+    </head>
+    <body>
+        <!-- main app container -->
+        <div class="container-fluid">
+            <div class="container">
+                <ui-view></ui-view>
+            </div>
+        </div>
+
+
+
+        <!-- angular scripts -->
+        <script src="assets/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+        <script src="assets/js/kendo.all.min.js" type="text/javascript"></script>
+
+        <script src="assets/js/angular.min.js" type="text/javascript"></script>
+        <script src="assets/js/angular-messages.min.js" type="text/javascript"></script>
+        <script src="assets/js/angular-cookies.min.js" type="text/javascript"></script>
+        <script src="assets/js/angular-ui-router.min.js" type="text/javascript"></script>
+        <script src="assets/js/ngStorage.min.js" type="text/javascript"></script>
+        <script src="assets/js/angular-storage.js" type="text/javascript"></script>
+        <script src="assets/js/angular-jwt.js" type="text/javascript"></script>
+
+        <script src="assets/libs/ngKookies.min.js" type="text/javascript"></script>
+        <script src="assets/libs/authComplete.js" type="text/javascript"></script>
+        <script src="assets/libs/loading-bar.min.js" type="text/javascript"></script>
+        <script src="assets/libs/angular-local-storage.min.js" type="text/javascript"></script>
+
+        <!-- application scripts -->
+        <script src="app.js"></script>
+
+        <script src="app-services/authInterceptorService.js" type="text/javascript"></script>
+        <script src="app-services/authService.js" type="text/javascript"></script>
+        <script src="app-services/tokensManagerService.js" type="text/javascript"></script>
+        <script src="app-services/authentication.service.js"></script>
+        <script src="app-services/signalRService.js"></script>
+        <script src="app-services/serviceCall.js"></script>
+        <script src="app-services/playZoneService.js"></script>
+        <script src="app-services/appDirectives.js" type="text/javascript"></script>
+
+        <script src="home/index.controller.js"></script>
+        <script src="login/index.controller.js"></script>
+        <script src="register/index.controller.js" type="text/javascript"></script>
+        <script src="passwordreset/index.controller.js" type="text/javascript"></script>
+        <script src="sitngo/index.controller.js" type="text/javascript"></script>
+        <script src="sitngoTest/index.controller.js" type="text/javascript"></script>
+        <script src="playZone/index.controller.js" type="text/javascript"></script>
+        <script src="games/index.controller.js" type="text/javascript"></script>
+
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.0.min.js"></script>
+
+        <!-- ngProgress-->
+        <script src="assets/libs/ngprogress.min.js"></script>
+        <link rel="stylesheet" href="assets/css/ngProgress.css" />
+        <script src="assets/libs/angular-progressbar.min.js"></script>
+
+        <!-- scripts for fake backend -->
+        <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-mocks.js"></script>-->
+        <!--<script src="app-helpers/fake-backend.js"></script>-->
+    </body>
+</html>
