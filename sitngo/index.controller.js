@@ -8,9 +8,14 @@
 
                     $scope.code = 'Demonstrate two-way da binding';
 
-                    var message;
+//                    var message = {header: {}, question: {}, self: {}};
+                    var headerMessage, questionMessage, selfMessage;
                     var questionText;
-                    $scope.message = message;
+
+                    $scope.headerMessage = headerMessage;
+                    $scope.questionMessage = questionMessage;
+                    $scope.selfMessage = selfMessage;
+
                     $scope.timeToAnswer = 4000;
                     $window.timeToAnswer = $scope.timeToAnswer;
 
@@ -44,35 +49,37 @@
 
                         switch (i) {
 
-                            case 0: //startGame                   
-                                $scope.message = arr[0];
+                            case 0: //Join  Table                 
+                                $scope.selfMessage = arr[0];
                                 break;
                             case 1: //startGame                   
-                                $scope.message = arr[1];
+                                $scope.headerMessage = arr[1];
+                                $scope.questionMessage = arr[1];
                                 break;
 
                             case 2: //serveQuestion
-                                var question = getQuestion(queue[4]);
-                                questionText = question.question;
-                                $localStorage.question = questionText;
-                                $scope.question = $localStorage.question;
-                                $scope.message = queue[4];
+//                                var question = getQuestion(arr[4]);
+//                                questionText = question.question;
+//                                $localStorage.question = questionText;
+//                                $scope.question = $localStorage.question;
+                                $scope.questionMessage = arr[2];
                                 break;
                             case 3://serveAnswer
-                                console.log(queue[5]);
-                                var question = getQuestion(queue[4]);
-                                questionText = question.question;
-                                $scope.message = queue[5];
-                                $scope.question = questionText;
+//                                var question = getQuestion(queue[4]);
+//                                questionText = question.question;
+                                $scope.questionMessage = arr[3];
+//                                $scope.question = questionText;
                                 break;
                             case 4://displayResults
-                                var question = getQuestion(queue[4]);
-                                questionText = question.question;
-                                $scope.message = queue[6];
-                                $scope.question = questionText;
+//                                var question = getQuestion(queue[4]);
+//                                questionText = question.question;
+                                $scope.questionMessage = arr[4];
+                                $scope.headerMessage = arr[4];
+                                $scope.selfMessage = arr[4];
+//                                $scope.question = questionText;
                                 break;
                             case 5://reset Game
-                                $scope.message = queue[7];
+                                $scope.questionMessage = arr[5];
                                 clearTimer();
                         }
                     }
@@ -91,33 +98,37 @@
                         scope.$watchCollection(exp, function (newVal, oldVal) {
                             //var playerCount = 5;
                             var players = getPlayerInfo(newVal);
+                            console.log("Oponnent Data", players);
                             scope.players = players;
                         });
 
 
 
                         function getPlayerInfo(newVal) {
-                            var obj = JSON.parse(newVal);
-                            var playerCount = getPlayerCount(newVal);
+                            var obj = (typeof newVal === "String") ? JSON.parse(newVal) : newVal;
+                            var playerCount = getPlayerCount(obj);
                             var players = getPlayerPositions(playerCount);
                             var playersInfoArr = [];
                             var returnObj = {};
-                            var playerInfo = obj.Players;
+//                            alert(obj);
+                            var playerInfo = (obj !== undefined) ? obj.Players : [];
                             var i = 0;
                             for (i = 0; i < playerCount; i++) {
                                 var nObj = {};
                                 nObj['player'] = playerInfo[i];
                                 nObj['playerPosition'] = players[i];
+                                console.log("Player new Object", nObj);
                                 playersInfoArr.push(nObj);
                             }
-                            returnObj['PoolAmount'] = obj.PoolAmount;
+                            returnObj['PoolAmount'] = (obj !== undefined) ? obj.PoolAmount : [];
                             returnObj['playersInfo'] = playersInfoArr;
                             return returnObj;
                         }
                         function getPlayerCount(newVal) {
-                            var json = JSON.parse(newVal);
-
-                            var playerCount = json["Players"].length;
+//                            alert(newVal);
+                            var json = (typeof newVal === "String") ? JSON.parse(newVal) : newVal;
+//                            alert(json);
+                            var playerCount = (json !== undefined && json["Players"] !== undefined) ? json["Players"].length : 0;
                             return playerCount;
                         }
 
@@ -163,9 +174,10 @@
                     link: function (scope, el, attr) {
                         var exp = $parse(attr.questionData);
                         scope.$watchCollection(exp, function (newVal, oldVal) {
-                            var currentEvent = getCurrentEvent(newVal, $localStorage);
+                            var currentEvent = getCurrentEvent(newVal);
+//                            alert(currentEvent);
                             var displayObject = getDisplayObject(newVal, currentEvent);
-                            alert(currentEvent);
+//                            alert(currentEvent);
                             if (currentEvent === "init") {
                                 scope.message = displayObject;
                             } else if (currentEvent === "startGame") {
@@ -198,7 +210,6 @@
                                 scope.message = newVal;
                             }
 
-                            scope.players = players;
                         })
 
                         function displayResults(json) {
@@ -292,23 +303,25 @@
                             return startGameJSON;
                         }
 
-                        function getCurrentEvent(newVal, $localStorage) {
-                            alert($localStorage.currentEvent);
-                            var obj = JSON.parse(newVal);
-                            var currentEvent = "init";
+                        function getCurrentEvent(newVal) {
+                            //alert($localStorage.currentEvent);
+                            var obj = (typeof newVal === "String") ? JSON.parse(newVal) : newVal;
+                            var currentEvent;
 //                            alert(typeof obj.TimeToServeQuestion);
-                            if (typeof newVal === 'string' && currentEvent !== "init") {
-                                currentEvent = "init";
-                            } else if (typeof obj.TimeToServeQuestion === 'number' && $localStorage.currentEvent === 'init') {
-                                currentEvent = "startGame";
-                            } else if (typeof obj.QuestionId === 'string') {
-                                currentEvent = "serveQuestion";
-                            } else if (obj.AnswerId === 'string') {
-                                currentEvent = "serveAnswer";
-                            } else if (obj instanceof Array) {
-                                currentEvent = "gameResults";
-                            } else {
-                                currentEvent = "resetGame";
+                            if (obj !== undefined) {
+                                if (typeof obj.ProfileImage === 'string') {
+                                    currentEvent = "joinTable";
+                                } else if (typeof obj.TimeToServeQuestion === 'number') {
+                                    currentEvent = "startGame";
+                                } else if (typeof obj.QuestionId === 'string') {
+                                    currentEvent = "serveQuestion";
+                                } else if (obj.AnswerId === 'string') {
+                                    currentEvent = "serveAnswer";
+                                } else if (obj instanceof Array) {
+                                    currentEvent = "gameResults";
+                                } else {
+                                    currentEvent = "resetGame";
+                                }
                             }
 
                             return currentEvent;
@@ -331,12 +344,11 @@
                         }
 
                         function getDisplayObject(newVal, currentEvent) {
+                            var json;
 
-                            if (typeof newVal !== "Object") {
-                                var json = JSON.parse(newVal);
-                            } else {
-                                var json = newVal;
-                            }
+                            if (typeof newVal !== "Object")
+                                json = (typeof newVal === "String") ? JSON.parse(newVal) : newVal;
+
 
 
                             if (currentEvent === "init") {
@@ -353,22 +365,28 @@
                 return directiveDefinitionObject;
 
             })
-            .directive('selfData', function ($parse) {
+            .directive('selfData', function ($parse, $localStorage) {
                 var directiveDefinitionObject = {
                     restrict: 'EA',
                     link: function (scope, el, attr) {
                         var exp = $parse(attr.selfData);
                         scope.$watchCollection(exp, function (newVal, oldVal) {
-                            var players = [{"left": 480, "top": 10, "width": 50, "height": 50}];
-                            scope.self = players;
-
+                            console.log("Self Data is ", typeof newVal, newVal);
+                            var playersPositon = [{"left": 480, "top": 10, "width": 50, "height": 50}];
+                            scope.selfPosition = playersPositon;
                             var wallet = getWallet(newVal);
-
                             scope.wallet = wallet;
 
+                            console.log("Wallet Balence", scope.wallet, newVal)
                             function getWallet(newVal) {
-                                var obj = JSON.parse(newVal);
-                                var wallet = obj.UserWallet.FreeCoins;
+                                var obj = (typeof newVal === "string") ? JSON.parse(newVal) : newVal;
+                                if (obj !== undefined && obj.UserWallet) {
+                                    console.log("Wallet Chcek ", typeof obj, obj);
+                                    var wallet = (obj.UserWallet !== undefined) ? obj.UserWallet.FreeCoins : 0;
+                                    $localStorage.selfWallet = wallet;
+                                } else {
+                                    var wallet = 0;
+                                }
 
                                 return wallet;
                             }
