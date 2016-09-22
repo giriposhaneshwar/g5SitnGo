@@ -1,14 +1,24 @@
 <div class="playBodySection">
-    <div class="question">
-        {{questionMessage | json}}
-        <!--{{message.Message}}-->
+    <div ng-if="state == 'startGame'">
+        {{stateMessage}}
     </div>
-    <div class="choices col-sm-12">
-        <ul>
-            <li class="opts">Opt 1</li>
-            <li class="opts">Opt 2</li>
-            <li class="opts">Opt 3</li>
-            <li class="opts">Opt 4</li>
-        </ul>
+    <!--ng-if="state == 'serveQuestion' || state == 'serveAnswer'"-->
+    <div >
+        <div class="question">
+            <!--{{questionMessage | json}}-->
+            {{state}} || {{question}}
+        </div>
+        <div class="choices col-sm-12">
+            <ul>
+                <li class="opt {{'opt_' + k}}" 
+                    ng-repeat="(k,opts) in answerChoices" 
+                    ng-click="attemptAnswer($event, opts, k)" 
+                    id="{{'opt_' + k}}"
+                    optval="{{opts.ChoiceId}}"
+                    optpos="{{k}}">
+                    {{opts.Title}}
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

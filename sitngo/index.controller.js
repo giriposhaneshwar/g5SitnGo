@@ -18,22 +18,25 @@
                     arr[0] = '{"PlayerId":618,"TableId":1,"UserId":"cd50445e-8ebc-4dfa-9d01-ef31ee9690aa","ProfileImage":"./assets/images/avatar.png","DisplayName":"giriy","Status":3,"UserWallet":{"FreeCoins":500894,"Amount":50,"UserId":"cd50445e-8ebc-4dfa-9d01-ef31ee9690aa"}}';
                     arr[1] = '{"GameId":2276,"TimeToServeQuestion":10,"PoolAmount":10,"GameTableId":1,"Players":[{"PlayerId":618,"TableId":1,"UserId":"cd50445e-8ebc-4dfa-9d01-ef31ee9690aa","ProfileImage":"./assets/images/avatar.png","DisplayName":"sreekanth@mezzlabs.com","Status":3,"UserWallet":{"FreeCoins":500894,"Amount":50,"UserId":"cd50445e-8ebc-4dfa-9d01-ef31ee9690aa"}},{"PlayerId":619,"TableId":1,"UserId":"bc9862f9-aef0-4daa-81af-8a72d6d4e0bb","ProfileImage":"https://g5r.blob.core.windows.net/imgs/65c7cc2c-2867-474d-bfe6-7e03f864264a/profilepic.jpg","DisplayName":"spayyavula@gmail.com","Status":3,"UserWallet":{"FreeCoins":500894,"Amount":50,"UserId":"bc9862f9-aef0-4daa-81af-8a72d6d4e0bb"}}],"Message":" Game Started."}';
                     arr[2] = '{"GameId":2276,"QuestionId":"a8c6e168-7e40-461b-b21f-21c085e6b84f","Description":"The area bounded by the lines y= 2 +x,y= 2x??and??x= 2 is","TimetoAnswer":30,"Choices":[{"ChoiceId":"0e9dee8f-bbf0-4430-b447-98847fc276af","Title":"3"},{"ChoiceId":"3d49b90e-aa02-407b-abe8-bdc06c46bb8b","Title":"16"},{"ChoiceId":"2ab20994-e305-444a-8a6b-c1e7d3f5912b","Title":"4"},{"ChoiceId":"c05ede50-20c5-4e5c-a538-fdaac39b8381","Title":"8"}],"GameTableId":0,"Players":[{"UserId":"cd50445e-8ebc-4dfa-9d01-ef31ee9690aa","Status":3},{"UserId":"bc9862f9-aef0-4daa-81af-8a72d6d4e0bb","Status":3}],"Message":null}';
-                    arr[3] = '{"GameId":2508,"AnswerId":"9815cc84-236b-4a0d-a8e3-50a4188a077a","GameTableId":9,"Players":[{"UserId":"0e73aede-4ef8-4460-8cdb-037b52c568c1","Status":3},{"UserId":"7a67f398-140b-4b85-b22b-a858206d81a2","Status":3}],"Message":null}';
+                    arr[3] = '{"GameId":2508,"AnswerId":"0e9dee8f-bbf0-4430-b447-98847fc276af","GameTableId":9,"Players":[{"UserId":"0e73aede-4ef8-4460-8cdb-037b52c568c1","Status":3},{"UserId":"7a67f398-140b-4b85-b22b-a858206d81a2","Status":3}],"Message":null}';
                     arr[4] = '[{"GameTableId":9,"GameId":2508,"UserId":"cd50445e-8ebc-4dfa-9d01-ef31ee9690aa","DisplayName":null,"timetakeninseconds":0,"Earned":4.75,"IsCorrectAnswer":false},{"GameTableId":9,"GameId":2508,"UserId":"7a67f398-140b-4b85-b22b-a858206d81a2","DisplayName":null,"timetakeninseconds":0,"Earned":4.75,"IsCorrectAnswer":false}]';
-                    arr[5] = "Game will Start in few seconds.";
+//                    arr[5] = "Game will Start in few seconds.";
                     var i = 0;
+                    $scope.timeLimit = 5;
                     var game = $interval(function () {
                         simulate(i);
                         i += 1;
-                    }, 5000);
+                    }, ($scope.timeLimit * 1000));
                     function simulate(i) {
 
+//                        alert($scope.timeLimit);
                         switch (i) {
-
                             case 0: //Join  Table                 
                                 $scope.selfMessage = arr[0];
                                 break;
-                            case 1: //startGame                   
+                            case 1: //startGame    
+                                var dt = (typeof arr[1] === 'string') ? JSON.parse(arr[1]) : arr[1];
+                                $scope.timeLimit = dt.TimeToServeQuestion;
                                 $scope.headerMessage = arr[1];
                                 $scope.questionMessage = arr[1];
                                 break;
@@ -42,6 +45,9 @@
 //                                questionText = question.question;
 //                                $localStorage.question = questionText;
 //                                $scope.question = $localStorage.question;
+
+                                var dt = (typeof arr[1] === 'string') ? JSON.parse(arr[2]) : arr[2];
+                                $scope.timeLimit = dt.TimetoAnswer;
                                 $scope.headerMessage = arr[2];
                                 $scope.questionMessage = arr[2];
                                 break;
@@ -50,6 +56,7 @@
 //                                questionText = question.question;
                                 $scope.headerMessage = arr[3];
                                 $scope.questionMessage = arr[3];
+                                $scope.timeLimit = 5;
 //                                $scope.question = questionText;
                                 break;
                             case 4://displayResults
@@ -59,10 +66,10 @@
                                 $scope.headerMessage = arr[4];
                                 $scope.selfMessage = arr[4];
 //                                $scope.question = questionText;
-                                break;
-                            case 5://reset Game
-                                $scope.questionMessage = arr[5];
                                 clearTimer();
+                                break;
+//                            case 5://reset Game
+//                                $scope.questionMessage = arr[5];
                         }
                     }
 
@@ -91,7 +98,6 @@
                                 }
                             }
                         });
-
                         function getOponents(playerData) {
 //                            console.log(typeof playerData, playerData);
                             var oponentsArr = [];
@@ -169,13 +175,13 @@
                             if (newVal !== undefined) {
 
                                 var currentEvent = getCurrentEvent(newVal);
-                                alert(currentEvent);
+                                scope.state = "";
+                                scope.stateMessage = "";
 //                                alert(typeof newVal);
                                 var newVal = (typeof newVal !== "string") ? JSON.parse(newVal) : newVal;
-
                                 var displayObject = getDisplayObject(newVal, currentEvent);
-                                alert(currentEvent);
-                                if (currentEvent === "init") {
+                                console.log("Curretn Event", currentEvent);
+                                if (currentEvent === "joinTable") {
                                     scope.questionMessage = displayObject;
                                 } else if (currentEvent === "startGame") {
                                     // displayObject has json object which needs to be parsed to the scope appropriately
@@ -183,17 +189,25 @@
                                     scope.questionMessage = startGameJSON.Message;
                                     scope.PoolAmount = startGameJSON.PoolAmount;
                                     scope.PlayerAttributes = startGameJSON.Players;
+                                    scope.state = currentEvent;
+                                    scope.stateMessage = startGameJSON.Message;
                                 } else if (currentEvent === "serveQuestion") {
                                     var questionobj = parseQuestion(displayObject);
                                     scope.question = questionobj.question;
                                     scope.answerChoices = questionobj.answerChoices;
                                     scope.Players = questionobj.Players;
+                                    scope.state = currentEvent;
+                                    scope.stateMessage = questionobj.question;
                                 } else if (currentEvent === "serveAnswer") {
 
                                     var answerObj = parseAnswer(displayObject);
                                     scope.answer = answerObj.answer;
                                     scope.Player = answerObj.Players;
-                                    scope.questionMessage = answerObj.Message;
+                                    scope.state = currentEvent;
+                                    checkAnserResult(scope.answerChoices, scope.answer, scope.answered);
+//                                    scope.questionMessage = answerObj.answer;
+
+                                    console.log("Answer Message", answerObj, scope.questionMessage);
                                 } else if (currentEvent === "showResults") {
 
                                     var resultsObj = parseResults(displayObject);
@@ -208,7 +222,6 @@
 
                             }
                         });
-
                         function displayResults(json) {
 
                             var results = {};
@@ -227,10 +240,42 @@
 
                             return results;
                         }
+                        scope.attemptAnswerButton = false;
+                        scope.attemptAnswer = function (evt, data, key) {
+                            if (!scope.attemptAnswerButton) {
+                                scope.attemptAnswerButton = true;
+                                scope.attempted = key;
+                                scope.answered = data.ChoiceId;
+
+                                var selectedEle = angular.element("#opt_" + key);
+                                selectedEle.parent().children().addClass('notAttempt');
+                                selectedEle.removeClass('notAttempt').addClass('attempt');
+                                scope.showResult = (scope.answer === scope.answered);
+                                scope.setClass = "attempt";
+                            }
+                        }
+                        function checkAnserResult(choices, val, ans) {
+                            var selectedEle = angular.element(".opt");
+                            angular.forEach(selectedEle, function (ele, indx) {
+                                var choseAnswer = angular.element(ele).attr('optval');
+                                var choseIndex = angular.element(ele).attr('optpos');
+                                var element = angular.element(ele);
+                                if (choseIndex == scope.attempted) {
+                                    if (scope.answer == scope.answered) {
+                                        element.addClass('currect');
+                                    } else {
+                                        element.addClass('wrong');
+                                    }
+                                } else {
+                                    if (scope.answer == choseAnswer) {
+                                        element.addClass('currect');
+                                    }
+                                }
+                            });
+                        }
 
                         function parseAnswer(json) {
                             json = (typeof json === "Object") ? json : JSON.parse(json);
-
                             var answerObj = {};
                             var Players = [{}];
                             Players = json['Players'];
@@ -291,20 +336,13 @@
                         }
 
                         function getCurrentEvent(newVal) {
-                            //aler249
                             //t($localStorage.currentEvent);
-                            var isJson = false;
-                            try {
-                                var obj = (typeof newVal === "string") ? JSON.parse(newVal) : newVal;
-                                isJson = true;
-                            } catch (ex) {
-                                isJson = false;
-                            }
-                            console.log(typeof obj, obj);
+                            var obj = (typeof newVal === "string") ? JSON.parse(newVal) : newVal;
                             var currentEvent;
 //                            alert(typeof obj.TimeToServeQuestion);
                             if (obj !== undefined) {
-                                if (obj.hasOwnProperty('ProfileImage') !== null) {
+                                console.log("getCurrentEvent Metod", typeof obj, obj);
+                                if (obj.hasOwnProperty('UserWallet')) {
                                     currentEvent = "joinTable";
                                 } else if (obj.hasOwnProperty('TimeToServeQuestion')) {
                                     currentEvent = "startGame";
@@ -314,8 +352,6 @@
                                     currentEvent = "serveAnswer";
                                 } else if (obj instanceof Array) {
                                     currentEvent = "gameResults";
-                                } else if (!isJson) {
-                                    currentEvent = "resetGame";
                                 }
                             }
 

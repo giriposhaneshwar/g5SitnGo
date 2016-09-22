@@ -158,8 +158,9 @@ p {
     display: block;
     min-height: 450px;
     position: relative;
+    border: 1px solid #ccc;
 }
-.playBodySection>.question{
+.playBodySection .question{
     display: block;
     width: 80%;
     height: 250px;
@@ -196,7 +197,7 @@ p {
     display: block;
     margin: 0px auto;
 }
-.choices>ul>li.opts{
+.choices>ul>li.opt{
     display: inline-block;
     border: 1px solid #ccc;
     width: 47%;
@@ -207,4 +208,18 @@ p {
     color: #fff;
     font-weight: bold;
     cursor: pointer;
+}
+.choices>ul>li.opt.notAttempt{
+    cursor: default;
+}
+.choices>ul>li.opt.attempt{
+    background-color: #ccc;
+    color: #ddd;
+    cursor: default;
+}
+.choices>ul>li.opt.currect{
+    background-color: green;
+}
+.choices>ul>li.opt.wrong{
+    background-color: red;
 }
