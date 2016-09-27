@@ -1,4 +1,6 @@
-﻿(function () {
+    var serviceBase = 'http://g5api.azurewebsites.net/';
+
+(function () {
     'use strict';
     console.log('app init');
 //        .module('app', ['ui.router', 'ngMessages', 'ngStorage', 'ngMockE2E', 'angular-jwt', 'angular-storage'])
@@ -9,7 +11,6 @@
 
     function config($stateProvider, $urlRouterProvider, jwtInterceptorProvider, $httpProvider) {
         console.log('config ..');
-
        
         // default route
         $urlRouterProvider.otherwise("/login");

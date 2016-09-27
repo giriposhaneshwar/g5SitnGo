@@ -3,7 +3,7 @@
         {{stateMessage}}
     </div>
     <!--ng-if="state == 'serveQuestion' || state == 'serveAnswer'"-->
-    <div >
+    <div ng-if="state == 'serveQuestion' || state == 'serveAnswer'">
         <div class="question">
             <!--{{questionMessage | json}}-->
             {{state}} || {{question}}
