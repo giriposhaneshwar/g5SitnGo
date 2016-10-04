@@ -1,0 +1,683 @@
+/* facefonts */
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../assets/fonts/OpenSans-Regular.ttf');
+    font-style: normal;
+}
+
+
+/*** General Classes ****/
+
+.titleClass {
+    color: #2eb398;
+    font-size: 16px;
+    font-weight: 600;
+    padding-left: 15px;
+}
+
+.topicLabel {
+    color: #fff;
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 10px;
+    opacity: 0.5;
+}
+
+.subLabel {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 2px;
+    opacity: 0.3;
+}
+
+.currencyLabel {
+    color: #fcc103;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+
+/*** BORDER Classes ****/
+
+.brdrBottom {
+    border-bottom: 1px solid #393939;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 40px;
+    text-indent: 15px;
+}
+
+.brdrBottom1 {
+    border-bottom: 1px dashed #393939;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 40px;
+    padding: 15px 0;
+    text-indent: 15px;
+}
+
+
+/*** BUTTON Classes ****/
+
+.btnClass {
+    cursor: pointer;
+}
+
+
+/*** HEADERS ****/
+
+#header .navbar-default {
+    background-color: #293437;
+    border: none;
+    border-radius: 0px;
+}
+
+#header .navbar-default .navbar-toggle {
+    border: 1px solid #2eb398 !important;
+    color: #34bca2;
+}
+
+
+/*** Carousel Trending Styles **/
+
+#myCarousel .carousel-control .glyphicon-chevron-left,
+.carousel-control .glyphicon-chevron-right,
+.carousel-control .icon-next,
+.carousel-control .icon-prev {
+    color: red !important;
+    margin-top: -40px;
+}
+
+#myCarousel .carousel-control.left {
+    background-image: none;
+}
+
+#myCarousel .carousel-control.right {
+    background-image: none;
+}
+
+#myCarousel .carousel-inner > .item > a > img,
+.carousel-inner > .item > img,
+.img-responsive,
+.thumbnail a > img,
+.thumbnail > img {
+    border-radius: 8px;
+    display: block;
+    height: 250px;
+    width: 100%;
+}
+
+#myCarousel .carousel-indicators {
+    position: inherit;
+    text-align: center;
+    top: 25px;
+}
+
+#myCarousel .carousel-indicators .active {
+    background-color: #2eb398;
+    border: 1px solid #2eb398;
+}
+
+#myCarousel .carousel-control {
+    width: 9%;
+}
+
+#myCarousel .glyphicon-chevron-left::before {
+    content: none;
+}
+
+#myCarousel .glyphicon-chevron-right::before {
+    content: none;
+}
+
+
+/*** BxSlider Style **/
+
+.bx-wrapper {
+    float: left;
+}
+
+.bx-wrapper .bx-pager {
+    display: none;
+}
+
+
+/*.subjectsSlider #slider-next .bx-prev {
+    background: url(../images/sitnGo/arrow-left-subjects.svg) no-repeat;
+}
+
+.subjectsSlider #slider-next .bx-next {
+    background: url(../images/sitnGo/arrow-right-subjects.svg) no-repeat;
+}*/
+
+.subjectsSlider .bx-wrapper .bx-controls-direction a {
+    top: 2px;
+}
+
+.bx-controls-direction {
+    float: right;
+}
+
+.bx-wrapper .bx-controls-direction a.disabled {
+    color: red;
+    display: block !important;
+}
+
+.subjectTile {
+    height: 120px;
+    margin: 10px;
+    position: relative;
+    border-radius: 8px;
+    width: 120px;
+    display: inline-block;
+    border: 1px solid #494e50;
+}
+
+#search-text-input {
+    background-color: #171d1f;
+    border-bottom: 1px solid #393939;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    color: #fff;
+    float: left;
+    padding: 8px;
+    width: 100%;
+}
+
+#button-holder {
+    float: right;
+    margin-top: -48px;
+    padding-right: 5px;
+}
+
+#button-holder img {
+    height: 16px;
+    margin: 4px;
+    width: 16px;
+}
+
+.topSidebar {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+    width: 250px;
+}
+
+.favImg {
+    background-color: #222023;
+    border: 1px solid #fb5c5c;
+    border-radius: 4px;
+    margin-right: 10px;
+    padding: 8px 10px;
+}
+
+.brdrBottom1 a {
+    color: #fb5c5c;
+    opacity: 0.7;
+}
+
+.brdrBottom1 a:hover {
+    text-decoration: none;
+}
+
+.subjectsSlider .bx-wrapper .bx-viewport {
+    height: 215px !important;
+}
+
+#slider-prev .bx-prev {
+    cursor: default;
+    padding-right: 10px;
+}
+
+#slider-prev .bx-next {
+    cursor: default;
+    padding-right: 10px;
+}
+
+#slider-prev .disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.4;
+    padding-right: 10px;
+}
+
+#slider-next .disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.4;
+}
+
+.subjectTile img {
+    border-radius: 8px;
+}
+
+.popContent {
+    position: absolute;
+    bottom: 0;
+}
+
+.popContent1 {
+    bottom: 10px;
+    padding-left: 15px;
+    position: absolute;
+}
+
+.carouselTitle {
+    font-size: 21px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.carouselTitle1 {
+    font-size: 13x;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.subjectsSlider .bx-wrapper img {
+    height: 120px;
+    width: 120px;
+}
+
+
+/*** Popular Games ***/
+
+.popularGameImg {
+    background-image: url("../assets/images/popularImg.jpg");
+    background-repeat: no-repeat;
+    border-radius: 12px;
+    float: left;
+    height: 200px;
+}
+
+
+/******PLAY TABLE STYLES ******/
+
+.bodyBg {
+    background: url(../assets/images/sitnGo/table/table-main-bg.png);
+    position: absolute;
+    left: 0px;
+    top:0px;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+}
+
+.absolute-Center {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.absolute-Center.is-Responsive {
+    background: url(../assets/images/sitnGo/table/table-bg.jpg) no-repeat;
+    border: 1px solid #545c5e;
+    height: 595px;
+    width: 870px;
+    /*height: 563px;
+    width: 750px;*/
+}
+
+.profileChipBg {
+    background: rgba(0, 0, 0, 0) url("../assets/images/sitnGo/table/player-chipbg-table_72x72.svg") no-repeat scroll 0 0;
+    height: 72px;
+    margin: 55px;
+    width: 72px;
+}
+
+.profileChipImg {
+    background: rgba(0, 0, 0, 0) url("../assets/images/sitnGo/table/IMG_1.jpg") no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    height: 62px;
+    margin-left: -10px;
+    margin-top: 5px;
+    width: 62px;
+    z-index: -2;
+}
+
+.profileChip img {
+    border-radius: 50%;
+    height: 60px;
+    margin-left: -9px;
+    margin-top: 6px;
+    width: 60px;
+    z-index: -2;
+}
+
+.correctPlayer {
+    border: 5px solid #2fbf22;
+    border-radius: 50%;
+    height: 72px;
+    margin: 55px;
+    width: 72px;
+}
+
+.inCorrectPlayer {
+    border: 5px solid #d23839;
+    border-radius: 50%;
+    height: 72px;
+    margin: 55px;
+    width: 72px;
+}
+
+.skippedPlayer {
+    border: 5px solid #fff;
+    border-radius: 50%;
+    height: 72px;
+    margin: 55px;
+    width: 72px;
+}
+
+.skippedPlayer .profileChipImg {
+    margin-left: -15px;
+    margin-top: 0px;
+}
+
+.correctPlayer .profileChipImg {
+    margin-left: -15px;
+    margin-top: 0px;
+}
+
+.inCorrectPlayer .profileChipImg {
+    margin-left: -15px;
+    margin-top: 0px;
+}
+
+.skippedPlayer .profileMoney {
+    left: 7px;
+}
+
+.correctPlayer .profileMoney {
+    left: 7px;
+}
+
+.inCorrectPlayer .profileMoney {
+    left: 7px;
+}
+
+.noPlayer .profileChipImg {
+    background: none !important;
+    background-color: #1d2029 !important;
+    border: 1px solid #a5920d;
+}
+
+.noPlayer .noMoney {
+    display: none;
+}
+
+.scoreDispCorrect {
+    border: 5px solid #2ec022;
+}
+
+.scoreDispWrong {
+    border: 5px solid #b65252;
+}
+
+.scoreDispSkipped {
+    border: 5px solid #7F8790;
+}
+
+.scoreDispCorrect .profileChipImg {
+    opacity: 0.3;
+}
+
+.scoreDispWrong .profileChipImg {
+    opacity: 0.3;
+}
+
+.scoreDispSkipped .profileChipImg {
+    opacity: 0.3;
+}
+
+.scoreNumClass {
+    font-size: 16px;
+    font-weight: normal;
+    margin-top: -72px;
+}
+
+.questionText {
+    font-size: 18px;
+    opacity: 0.7;
+    font-weight: normal;
+    margin-top: -15px;
+    min-height: 100px;
+}
+
+.answerText button {
+    background-color: #425059;
+    border-radius: 4px;
+    font-size: 21px;
+    font-weight: normal;
+    margin: 15px;
+    color: #d3d4d5;
+    padding: 8px;
+    border: 0px;
+}
+
+.answerText button.active {
+    background-color: #26353c;
+}
+
+.answerText button.correctAns {
+    background-color: #479a42;
+}
+
+.answerText button.wrongAns {
+    background-color: #b65252;
+}
+
+.moneyLabel {
+    color: #fcc103;
+    font-size: 25px;
+    margin-left: 5px;
+    position: absolute;
+}
+
+.poolChip {
+    width: 35px;
+    height: 35px;
+}
+
+.chatIcon {
+    width: 32px;
+    height: 32px;
+    margin-left: 70px;
+    opacity: 0.5;
+}
+
+.playTabNav {
+    margin-top: 10px;
+}
+
+.MRGNT10PX {
+    margin-top: 10px;
+}
+
+.MRGNT20PX {
+    margin-top: 20px;
+}
+
+.MRGNT30PX {
+    margin-top: 30px;
+}
+
+.MRGNT40PX {
+    margin-top: 40px;
+}
+
+.MRGNT50PX {
+    margin-top: 50px;
+}
+
+.profileMoney {
+    background: url("../assets/images/sitnGo/table/profile-coins-bg_72x30.svg") no-repeat scroll 0 0;
+    height: 30px;
+    margin-top: -10px;
+    position: absolute;
+    width: 50px;
+    z-index: 1;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.player4 {
+    left: -40px;
+    margin-top: 50px;
+}
+
+.player2 {
+    margin-left: 10px;
+    margin-top: 15px;
+}
+
+.player1 {
+    margin-left: 60px;
+    margin-top: 5px;
+}
+
+.player3 {
+    margin-left: 57px;
+    margin-top: 12px;
+}
+
+.player5 {
+    margin-left: 45px;
+    margin-right: -10px;
+    margin-top: 45px;
+}
+
+.player0 {
+    margin-left: 385px;
+    margin-right: -10px;
+    margin-top: 35px;
+}
+
+.playerName {
+    font-weight: bold;
+    opacity: 0.8;
+    padding-top: 2px;
+}
+
+.playerMain {
+    margin-left: 321px;
+    margin-top: -7px;
+}
+
+.noPlayer .player4 {
+    left: -40px;
+    margin-top: 50px;
+}
+
+.noPlayer .player2 {
+    margin-left: 10px;
+    margin-top: 15px;
+}
+
+.noPlayer .player1 {
+    margin-left: 60px;
+    margin-top: 4px;
+}
+
+.noPlayer .player3 {
+    margin-left: 57px;
+    margin-top: 12px;
+}
+
+.noPlayer .player5 {
+    margin-left: 45px;
+    margin-right: -10px;
+    margin-top: 45px;
+}
+
+.ouchLabel {
+    color: #fb5c5c;
+    font-size: 25px;
+}
+
+.popMsg {
+    color: #222222;
+    font-size: 21px;
+    font-weight: normal;
+}
+
+.modalBtn {
+    background-color: #fff;
+    border: 2px solid #fb5c5c;
+    border-radius: 4px;
+    color: #fb5c5c;
+    font-size: 16px;
+    font-weight: bold;
+    height: 48px;
+    width: 140px;
+}
+
+.modalBtnGreen {
+    background-color: #009933;
+    border: 2px solid #009933;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    height: 48px;
+    width: 140px;
+    margin-right: 10px;
+}
+
+
+/*** ToolTip Styles ***/
+
+#toolTip {
+    position: relative;
+    float: left;
+}
+
+#toolTip p {
+    background-color: #38474e;
+    border-radius: 5px;
+    color: #b5b9ba;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 7px;
+}
+
+#tailLeft {
+    border-color: #38474e transparent transparent;
+    border-style: solid;
+    border-width: 9px;
+    bottom: -8px;
+    height: 0;
+    left: 30px;
+    position: absolute;
+    width: 0;
+}
+
+#tailRight {
+    border-color: #38474e transparent transparent;
+    border-style: solid;
+    border-width: 9px;
+    bottom: -8px;
+    height: 0;
+    left: 225px;
+    position: absolute;
+    width: 0;
+}
+
+#tailCenter {
+    border-color: #38474e transparent transparent;
+    border-style: solid;
+    border-width: 9px;
+    bottom: -8px;
+    height: 0;
+    left: 120px;
+    position: absolute;
+    width: 0;
+}

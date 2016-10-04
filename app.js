@@ -1,83 +1,86 @@
-    var serviceBase = 'http://g5api.azurewebsites.net/';
+var serviceBase = '//gamyfidev-api.azurewebsites.net/';
+//var serviceBase = '//g5api.azurewebsites.net';
+//var serviceBase = '//192.168.0.40:8222';
+
 
 (function () {
     'use strict';
     console.log('app init');
 //        .module('app', ['ui.router', 'ngMessages', 'ngStorage', 'ngMockE2E', 'angular-jwt', 'angular-storage'])
     angular
-        .module('app', [ 'ui.router', 'ngMessages', 'ngStorage', 'angular-jwt', 'angular-storage', 'ngKookies', 'LocalStorageModule', 'ngCookies', 'angularProgressbar'])
-        .config(config)
-        .run(run);
+            .module('app', ['ui.router', 'ngMessages', 'ngStorage', 'ngSanitize', 'angular-jwt', 'angular-storage', 'ngKookies', 'LocalStorageModule', 'ngCookies', 'angularProgressbar'])
+            .config(config)
+            .run(run);
 
     function config($stateProvider, $urlRouterProvider, jwtInterceptorProvider, $httpProvider) {
         console.log('config ..');
-       
+
         // default route
         $urlRouterProvider.otherwise("/login");
 
 
         // app routes
         $stateProvider
-            .state('home', {
-                url: '/home',
-                templateUrl: 'home/index.view.html',
-                controller: 'Home.IndexController',
-                controllerAs: 'vm'
-            })
-            .state('register', {
-                url: '/register',
-                templateUrl: 'register/index.view.html',
-                controller: 'Register.IndexController',
-                controllerAs: 'vm'
-            })
-            .state('forgotPassword', {
-                url: '/forgotPassword',
-                templateUrl: 'passwordreset/forgotPassword.html',
-                controller: 'PasswordReset.IndexController',
-                controllerAs: 'vm'
-            })
-            .state('login', {
-                url: '/login',
-                templateUrl: 'login/index.view.html',
-                controller: 'Login.IndexController',
-                controllerAs: 'vm'
-            })
-            .state('passwordreset', {
-                url: '/passwordreset',
-                templateUrl: 'passwordreset/index.view.html',
-                controller: 'PasswordReset.IndexController',
-                controllerAs: 'vm'
-            })
-            .state('authComplete', {
-                url: '/authComplete',
-                templateUrl: 'login/authComplete.view.html',
-                controller: 'Login.IndexController',
-                controllerAs: 'vm'
-            }) 
-            .state('playZone', {
-                url:'/playZone',
-                templateUrl: 'playZone/index.view.html',
-                controller: 'PlayZone.IndexController',
-                controllerAs: 'vm'
-            })
-            .state('games', {
-                url:'/games',
-                templateUrl: 'games/index.view.html',
-                controller: 'Games.IndexController',
-                controllerAs: 'vm'
-            })
-            .state('sitngotest', {
-                url:'/sitngotest',
-                templateUrl: 'sitngoTest/index.view.html',
-                controller: 'SitNGoTest.IndexController',
-                controllerAs: 'vm'
-            })
-            .state('sitngo', {
-                url:'/sitngo',
-                templateUrl: 'sitngo/index.view.html',
-                controller: 'SitNGo.IndexController',
-                controllerAs: 'vm'
-            }); 
+                .state('home', {
+                    url: '/home',
+                    templateUrl: 'home/index.view.html',
+                    controller: 'Home.IndexController',
+                    controllerAs: 'vm'
+                })
+                .state('register', {
+                    url: '/register',
+                    templateUrl: 'register/index.view.html',
+                    controller: 'Register.IndexController',
+                    controllerAs: 'vm'
+                })
+                .state('forgotPassword', {
+                    url: '/forgotPassword',
+                    templateUrl: 'passwordreset/forgotPassword.html',
+                    controller: 'PasswordReset.IndexController',
+                    controllerAs: 'vm'
+                })
+                .state('login', {
+                    url: '/login',
+                    templateUrl: 'login/index.view.html',
+                    controller: 'Login.IndexController',
+                    controllerAs: 'vm'
+                })
+                .state('passwordreset', {
+                    url: '/passwordreset',
+                    templateUrl: 'passwordreset/index.view.html',
+                    controller: 'PasswordReset.IndexController',
+                    controllerAs: 'vm'
+                })
+                .state('authComplete', {
+                    url: '/authComplete',
+                    templateUrl: 'login/authComplete.view.html',
+                    controller: 'Login.IndexController',
+                    controllerAs: 'vm'
+                })
+                .state('playZone', {
+                    url: '/playZone',
+                    templateUrl: 'playZone/index.view.html',
+                    controller: 'PlayZone.IndexController',
+                    controllerAs: 'vm'
+                })
+                .state('games', {
+                    url: '/games',
+                    templateUrl: 'games/index.view.html',
+                    controller: 'Games.IndexController',
+                    controllerAs: 'vm'
+                })
+                .state('sitngotest', {
+                    url: '/sitngotest',
+                    templateUrl: 'sitngoTest/index.view.html',
+                    controller: 'SitNGoTest.IndexController',
+                    controllerAs: 'vm'
+                })
+                .state('sitngo', {
+                    url: '/sitngo',
+                    templateUrl: 'sitngo/index.view.html',
+                    controller: 'SitNGo.IndexController',
+                    controllerAs: 'vm'
+                });
     }
 
 
@@ -94,7 +97,7 @@
             var publicPages = ['/login'];
             var restrictedPage = publicPages.indexOf($location.path()) === -1;
             if (restrictedPage && !$localStorage.currentUser) {
-               // $location.path('/login');
+                // $location.path('/login');
             }
         });
     }
@@ -133,5 +136,5 @@
     angular.module('app').run(['authService', function (authService) {
             console.log('authService');
             authService.fillAuthData();
-        }]); 
+        }]);
 })();

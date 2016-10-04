@@ -1,15 +1,16 @@
 ﻿(function () {
     'use strict';
     angular
-        .module('app')
-        .factory('serviceCall', Service);
+            .module('app')
+            .factory('serviceCall', Service);
+
     function Service($http, $localStorage, $q, $cookies, localStorageService, ngAuthSettings) {
         var service = {},
-            deferred = $q.defer(),
-            serviceBase = ngAuthSettings.apiServiceBaseUri,
-            headerInfo = {headers: {'Content-Type': 'application/x-www-form-urlencoded'}};
+                deferred = $q.defer(),
+                serviceBase = ngAuthSettings.apiServiceBaseUri,
+                headerInfo = {headers: {'Content-Type': 'application/x-www-form-urlencoded'}};
 
-        
+
 
         service.postRequest = function (url, data, headers) {
             headers = headers == undefined ? "" : headers;
@@ -144,7 +145,7 @@
             });
         }
 
-        
+
 
         return service;
 

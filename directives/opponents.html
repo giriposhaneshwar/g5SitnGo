@@ -1,6 +1,9 @@
-<div class="playheaderSection">
+<!--<div class="playheaderSection">
+    <div>{{countDownTime| json}}</div>
+    <div><a href="javascript:void(0)" ng-click="exitCurrentGame()">Exit</a></div>
+    <div><a href="javascript:void(0)" ng-click="getMasterScope()">get Message</a></div>
     <div class="poolAmt">{{players.PoolAmount}}</div>
-    <!--{{players| json}}-->
+    {{players| json}}
     <div style="position:relative">
         <ul>
             <li ng-repeat="player in players.playersInfo" style="position:absolute" ng-style="{left:player.playerPosition.left, top:player.playerPosition.top, width:player.playerPosition.width, height:player.playerPosition.height}">
@@ -10,4 +13,81 @@
             </li>
         </ul>
     </div>
+</div>-->
+
+<div class="playTabNav">
+    <div class="col-xs-5 "><img class="poolChip" src="./assets/images/sitnGo/table/pool-chip_64x64.svg">
+        <label class="moneyLabel">10</label> <img class="chatIcon" src="./assets/images/sitnGo/table/chat_icon.svg"> </div>
+    <div class="col-xs-4 "><img src="./assets/images/sitnGo/table/playerImg.png" style="height: 30px; width: 30px; margin-left: 38px;"></div>
+    <div class="col-xs-3 ">
+        <a class="pull-right btnClass" ng-click="exitCurrentGame()"><img src="./assets/images/sitnGo/table/close_icon.svg " /></a>
+    </div>
 </div>
+<div class="col-xs-12 " style="display:none;">
+    <div id="toolTip" class="col-xs-4">
+        <p><i class="fa fa-info-circle " aria-hidden="true "></i> OOPS ! Stuart exits from the table</p>
+        <div id="tailLeft"></div>
+    </div>
+    <div id="toolTip" class="col-xs-4">
+        <p><i class="fa fa-info-circle " aria-hidden="true "></i> OOPS ! Stuart exits from the table</p>
+        <div id="tailCenter"></div>
+    </div>
+    <div id="toolTip" class="col-xs-4">
+        <p><i class="fa fa-info-circle " aria-hidden="true "></i> OOPS ! Stuart exits from the table</p>
+        <div id="tailRight"></div>
+    </div>
+</div>
+<div class="col-xs-12 ">
+    <div class="col-xs-2 profileChipBg noPlayer player4 ">
+        <div class="profileChipImg "></div>
+        <div class="profileMoney text-center ">
+            <div><i aria-hidden="true " class="fa fa-inr "></i>150</div>
+            <div class="playerName ">YOU</div>
+        </div>
+    </div>
+    <div class="col-xs-2 correctPlayer player2 ">
+        <div class="profileChipImg "></div>
+        <div class="profileMoney text-center ">
+            <div><i aria-hidden="true " class="fa fa-inr "></i>150</div>
+            <div class="playerName ">YOU</div>
+        </div>
+    </div>
+    <div class="col-xs-2 inCorrectPlayer player1 ">
+        <div class="profileChipImg "></div>
+        <div class="profileMoney text-center ">
+            <div><i aria-hidden="true " class="fa fa-inr "></i>150</div>
+            <div class="playerName ">YOU</div>
+        </div>
+    </div>
+    <div class="col-xs-2 skippedPlayer player3 ">
+        <div class="profileChipImg "></div>
+        <div class="profileMoney text-center ">
+            <div><i aria-hidden="true " class="fa fa-inr "></i>150</div>
+            <div class="playerName ">YOU</div>
+        </div>
+    </div>
+    <div class="col-xs-2 correctPlayer player5 scoreDispCorrect ">
+        <div class="profileChipImg "></div>
+        <div class="profileMoney text-center ">
+            <div><i aria-hidden="true " class="fa fa-inr "></i>150</div>
+            <div class="playerName ">YOU</div>
+            <div class="scoreNumClass ">15.34</div>
+        </div>
+    </div>
+    <!-- The below code is for ScoreDisplay with Wrong and Skipped -->
+    <!-- <div class="col-xs-2 inCorrectPlayer player5 scoreDispWrong ">
+        <div class="profileChipImg "></div>
+        <div class="profileMoney text-center ">
+            <div><i aria-hidden="true " class="fa fa-inr "></i>150</div>
+            <div class="playerName ">YOU</div>
+            <div class="scoreNumClass ">15.34</div>
+        </div>
+    </div>
+    <div class="col-xs-2 inCorrectPlayer player5 scoreDispSkipped ">
+        <div class="profileChipImg "></div>
+        <div class="profileMoney text-center ">
+            <div><i aria-hidden="true " class="fa fa-inr "></i>150</div>
+            <div class="playerName ">YOU</div>
+            <div class="scoreNumClass ">15.34</div>
+        </div>
+    </div>--></div>

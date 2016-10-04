@@ -1,11 +1,13 @@
-<div class="playBodySection">
+<!--<div class="playBodySection">   
+    {{questionMessage| json}}
+
     <div ng-if="state == 'startGame'">
         {{stateMessage}}
     </div>
-    <!--ng-if="state == 'serveQuestion' || state == 'serveAnswer'"-->
+    ng-if="state == 'serveQuestion' || state == 'serveAnswer'"
     <div ng-if="state == 'serveQuestion' || state == 'serveAnswer'">
         <div class="question">
-            <!--{{questionMessage | json}}-->
+            {{questionMessage | json}}
             {{state}} || {{question}}
         </div>
         <div class="choices col-sm-12">
@@ -19,6 +21,17 @@
                     {{opts.Title}}
                 </li>
             </ul>
+        </div>
+    </div>
+</div>-->
+
+<div class="col-xs-12 ">
+    <div class="text-center ">
+        <div>{{updateCounter| json}} </div><br>
+        <div class="questionText col-xs-12 " ng-if="methodType == 'playerJoinMessage'">{{questionMessage.Message}}</div>
+        <div class="questionText col-xs-12 " id="questionText" ng-if="methodType == 'sendQuestion'" ng-bind-html="questionMessage.Description"></div>
+        <div class="MRGNT20PX answerText col-xs-11 col-md-offset-1"  ng-if="methodType == 'sendQuestion'">
+            <button class="col-xs-5 active answerBtn" ng-repeat="choices in questionMessage.Choices"  ng-bind-html="choices.Title" ng-click="answeredQuestion($event, choices)"></button>
         </div>
     </div>
 </div>

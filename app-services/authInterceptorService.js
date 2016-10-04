@@ -16,7 +16,7 @@ angular.module('app').factory('authInterceptorService', ['$q', '$injector', '$lo
         }
 
         var _responseError = function (rejection) {
-            if (rejection.status === 401) {
+            if (rejection.status === 407) {
                 var authService = $injector.get('authService');
                 var authData = localStorageService.get('authorizationData');
 
@@ -27,7 +27,7 @@ angular.module('app').factory('authInterceptorService', ['$q', '$injector', '$lo
                     }
                 }
                 authService.logOut();
-                $location.path('/login');
+//                $location.path('/login');
             }
             return $q.reject(rejection);
         }

@@ -2,151 +2,91 @@
     'use strict';
     angular
             .module('app')
-            .controller('SitNGo.IndexController',
-                    ["$scope", "$rootScope", "$http", "$interval", "$compile", "signalRService", "playGameService", "$timeout", "$window", "$localStorage",
-                        function ($scope, $rootScope, $http, $interval, $compile, signalRService, playGameService, $timeout, $window, $localStorage) {
-                            var vm = this;
-                            vm.zoneID = 16;
-                            vm.url = '/api/Join/' + vm.zoneID;
-                            var signalRServiceHub = '';
-                            var config = {headers: {
-                                    'Authorization': 'Bearer  dxR8JzzmEMNjtAyk6gFWhvKHjgVFsSeKzINa7j3Qh0_gPfOWnL9liEAC3dqythfHy_8bbMgFjDoHudDvCGWTv_mQgLjObQxQcNhov-mmFfmfTbumuwZYU2v5ZYPb2avnyQMnE9bTknx-swg5NAW_3nXnbMA55o_ikFbVbe9nLtLCfIh8eb1ptE4txx_98SA8YoKafDJIhmkvHkebI0WnPtzal3gobQ_NCvD6xYmjmVGOSIRJU2O5l0VmAKGb64K1zMeXfs4BXx0ca0JCb0ZbhzkWmTJ6FS1vzDSoSiqdQcg2Ldcu5YHlkKTjGCGzVm8agDGOpMk4JotCL-mHR-Ixgy9KhDCyH-2UmD1VVVky34oba3T7jWe82RRQY1TclTS53PXAiLJodxepAP_xLNQ15Q'
-                                }
-                            };
+            .controller('SitNGo.IndexController', ["$scope", "$http", "$interval", "$compile", "signalRService", "playGameService", "$timeout", "$window", function ($scope, $http, $interval, $compile, signalRService, playGameService, $timeout, $window) {
+                    
+//
 
-                            playGameService.gameUserRequest(serviceBase + vm.url, config, function (response, state) {
-                                console.log("Rssssss", response);
-                                if (response.data.errorCode === 200) {
-                                    $rootScope.gameObj = response;
-                                    $localStorage.gamePlayerInfo = {player: response.data.result.playerId, gameTable: response.data.result.gameTableID}
-                                    playGameService.startGame($rootScope.gameObj);
-                                } else {
-                                    $rootScope.errMessage = response.data.errorMessage;
-//                                    alert("error");
-                                    console.log("ERRROr ", response);
-                                }
-                            });
+                    playGameService.startGame("start");
+
+                    
 
 
-                            $scope.$watch('$root.gameObj', function (newVal, oldVal) {
-                                // on root varialbel change trigger the method789
-                                console.log("New Val", newVal);
-                                if ($rootScope.gameObj !== undefined) {
-
-                                }
-                            });
-                            $scope.$watch('$root.errMessage', function (newVal, oldVal) {
-                                // on root varialbel change trigger the method789
-                                if (newVal !== undefined) {
-                                    alert(newVal);
-                                }
-                            });
-                            $scope.$watch('$root.timerStartCount', function (newVal, oldVal) {
-                                // on root varialbel change trigger the method789
-                                if (newVal !== undefined) {
-                                    $scope.updateCounter = newVal;
-                                }
-                            });
-
-                            $scope.getMasterScope = function () {
-                                console.log("Master Scope", $rootScope.gameMessage);
-                            }
-
-                            $scope.arr = {};
-                            $scope.answeredTime = {};
-
-                            $scope.answeredQuestion = function (evt, data) {
-                                evt.preventDefault();
-                                $scope.answeredTime['end'] = playGameService.startTimeRun();
-                                console.log("Answered is ", data, $scope.answeredTime);
-
-                                playGameService.submitAnswered(data, $scope.answeredTime);
-                            }
 
 
-                            $scope.$watch('$root.gameMessage', function (newVal, oldVal) {
-                                if (newVal !== undefined) {
-//                                    alert(JSON.stringify(newVal));
-                                    switch (newVal.method) {
-                                        case "JoinPlayerToTable":
-//                                        alert("join player to table");
-                                            $scope.arr[newVal.method] = newVal.message;
-                                            $scope.selfMessage = $scope.arr["JoinPlayerToTable"];
-                                            $scope.methodType = newVal.method;
-                                            break;
-                                        case "sendMessage":
-//                                        alert("sendMessage");
-                                            $scope.arr[newVal.method] = newVal.message;
-                                            $scope.questionMessage = $scope.arr["sendMessage"];
-                                            $scope.methodType = newVal.method;
-                                            break;
-                                        case "playerJoinMessage":
-//                                        alert("player join message");
-                                            $scope.arr[newVal.method] = newVal.message;
-                                            $scope.questionMessage = $scope.arr["playerJoinMessage"];
-                                            $scope.methodType = newVal.method;
+                    $scope.code = 'Demonstrate two-way da binding';
+//                    var message = {header: {}, question: {}, self: {}};
+                    var headerMessage, questionMessage, selfMessage;
+                    var questionText;
+                    $scope.headerMessage = headerMessage;
+                    $scope.questionMessage = questionMessage;
+                    $scope.selfMessage = selfMessage;
+                    $scope.timeToAnswer = 4000;
+                    $window.timeToAnswer = $scope.timeToAnswer;
+                    var arr = [];
+                    arr[0] = '{"PlayerId":618,"TableId":1,"UserId":"cd50445e-8ebc-4dfa-9d01-ef31ee9690aa","ProfileImage":"./assets/images/avatar.png","DisplayName":"giriy","Status":3,"UserWallet":{"FreeCoins":500894,"Amount":50,"UserId":"cd50445e-8ebc-4dfa-9d01-ef31ee9690aa"}}';
+                    arr[1] = '{"GameId":2276,"TimeToServeQuestion":10,"PoolAmount":10,"GameTableId":1,"Players":[{"PlayerId":618,"TableId":1,"UserId":"cd50445e-8ebc-4dfa-9d01-ef31ee9690aa","ProfileImage":"./assets/images/avatar.png","DisplayName":"sreekanth@mezzlabs.com","Status":3,"UserWallet":{"FreeCoins":500894,"Amount":50,"UserId":"cd50445e-8ebc-4dfa-9d01-ef31ee9690aa"}},{"PlayerId":619,"TableId":1,"UserId":"bc9862f9-aef0-4daa-81af-8a72d6d4e0bb","ProfileImage":"https://g5r.blob.core.windows.net/imgs/65c7cc2c-2867-474d-bfe6-7e03f864264a/profilepic.jpg","DisplayName":"spayyavula@gmail.com","Status":3,"UserWallet":{"FreeCoins":500894,"Amount":50,"UserId":"bc9862f9-aef0-4daa-81af-8a72d6d4e0bb"}},{"PlayerId":620,"TableId":1,"UserId":"rt2345f9-aef0-4daa-81af-8a72d6d4e0bb","ProfileImage":"https://g5r.blob.core.windows.net/imgs/65c7cc2c-2867-474d-bfe6-7e03f864264a/profilepic.jpg","DisplayName":"giri@gmail.com","Status":3,"UserWallet":{"FreeCoins":23560,"Amount":80,"UserId":"rt2345f9-aef0-4daa-81af-8a72d6d4e0bb"}}],"Message":" Game Started."}';
+                    arr[2] = '{"GameId":2276,"QuestionId":"a8c6e168-7e40-461b-b21f-21c085e6b84f","Description":"The area bounded by the lines y= 2 +x,y= 2x??and??x= 2 is","TimetoAnswer":30,"Choices":[{"ChoiceId":"0e9dee8f-bbf0-4430-b447-98847fc276af","Title":"3"},{"ChoiceId":"3d49b90e-aa02-407b-abe8-bdc06c46bb8b","Title":"16"},{"ChoiceId":"2ab20994-e305-444a-8a6b-c1e7d3f5912b","Title":"4"},{"ChoiceId":"c05ede50-20c5-4e5c-a538-fdaac39b8381","Title":"8"}],"GameTableId":0,"Players":[{"UserId":"cd50445e-8ebc-4dfa-9d01-ef31ee9690aa","Status":3},{"UserId":"bc9862f9-aef0-4daa-81af-8a72d6d4e0bb","Status":3},{"UserId":"rt2345f9-aef0-4daa-81af-8a72d6d4e0bb","Status":3}],"Message":null}';
+                    arr[3] = '{"GameId":2508,"AnswerId":"0e9dee8f-bbf0-4430-b447-98847fc276af","GameTableId":9,"Players":[{"UserId":"cd50445e-8ebc-4dfa-9d01-ef31ee9690aa","Status":3},{"UserId":"bc9862f9-aef0-4daa-81af-8a72d6d4e0bb","Status":3},{"UserId":"rt2345f9-aef0-4daa-81af-8a72d6d4e0bb","Status":3}],"Message":null}';
+                    arr[4] = '[{"GameTableId":9,"GameId":2508,"UserId":"cd50445e-8ebc-4dfa-9d01-ef31ee9690aa","DisplayName":null,"timetakeninseconds":2000,"Earned":4.75,"IsCorrectAnswer":false},{"GameTableId":9,"GameId":2508,"UserId":"bc9862f9-aef0-4daa-81af-8a72d6d4e0bb","DisplayName":null,"timetakeninseconds":1500,"Earned":4.75,"IsCorrectAnswer":false},{"GameTableId":9,"GameId":2508,"UserId":"rt2345f9-aef0-4daa-81af-8a72d6d4e0bb","DisplayName":null,"timetakeninseconds":1200,"Earned":4.75,"IsCorrectAnswer":true}]';
+//                    arr[5] = "Game will Start in few seconds.";
+                    var i = 0;
+                    $scope.timeLimit = 5;
+                    var game = $interval(function () {
+                        simulate(i);
+                        i += 1;
+                    }, ($scope.timeLimit * 1000));
+                    function simulate(i) {
 
-                                            break;
-                                        case "sendGameStart":
-//                                        alert("send game start");
-                                            $scope.arr[newVal.method] = newVal.message;
-                                            $scope.questionMessage = $scope.arr["sendGameStart"];
-                                            $scope.methodType = newVal.method;
+//                        alert($scope.timeLimit);
+                        switch (i) {
+                            case 0: //Join  Table                 
+                                $scope.selfMessage = arr[0];
+                                break;
+                            case 1: //startGame    
+                                var dt = (typeof arr[1] === 'string') ? JSON.parse(arr[1]) : arr[1];
+                                $scope.timeLimit = dt.TimeToServeQuestion;
+                                $scope.headerMessage = arr[1];
+                                $scope.questionMessage = arr[1];
+                                break;
+                            case 2: //serveQuestion
+//                                var question = getQuestion(arr[4]);
+//                                questionText = question.question;
+//                                $localStorage.question = questionText;
+//                                $scope.question = $localStorage.question;
 
-                                            break;
-                                        case "StartGame":
-//                                        alert("start game");
-                                            $scope.arr[newVal.method] = newVal.message;
-                                            $scope.questionMessage = $scope.arr["StartGame"];
-                                            $scope.methodType = newVal.method;
+                                var dt = (typeof arr[1] === 'string') ? JSON.parse(arr[2]) : arr[2];
+                                $scope.timeLimit = dt.TimetoAnswer;
+                                $scope.headerMessage = arr[2];
+                                $scope.questionMessage = arr[2];
+                                break;
+                            case 3://serveAnswer
+//                                var question = getQuestion(queue[4]);
+//                                questionText = question.question;
+                                $scope.headerMessage = arr[3];
+                                $scope.questionMessage = arr[3];
+                                $scope.timeLimit = 5;
+//                                $scope.question = questionText;
+                                break;
+                            case 4://displayResults
+//                                var question = getQuestion(queue[4]);
+//                                questionText = question.question;
+                                $scope.questionMessage = arr[4];
+                                $scope.headerMessage = arr[4];
+                                $scope.selfMessage = arr[4];
+//                                $scope.question = questionText;
+                                clearTimer();
+                                break;
+//                            case 5://reset Game
+//                                $scope.questionMessage = arr[5];
+                        }
+                    }
 
-                                            break;
-                                        case "sendQuestion":
-//                                        alert("send question");
-                                            $scope.arr[newVal.method] = newVal.message;
-                                            $scope.questionMessage = $scope.arr["sendQuestion"];
-                                            $scope.methodType = newVal.method;
-                                            $scope.answeredTime['start'] = playGameService.startTimeRun();
-//                                            alert($rootScope.timerStartCount);
-                                            break;
-                                        case "sendAnswer":
-//                                        alert("send answer");
-                                            $scope.arr[newVal.method] = newVal.message;
-                                            $scope.questionMessage = $scope.arr["sendAnswer"];
-                                            $scope.methodType = newVal.method;
-
-                                            break;
-                                        case "sendGameResults":
-//                                        alert("send game results");
-                                            $scope.arr[newVal.method] = newVal.message;
-                                            $scope.questionMessage = $scope.arr["sendGameResults"];
-                                            $scope.methodType = newVal.method;
-
-                                            break;
-                                        case "sendExitMessage":
-//                                        alert("send exit message");
-                                            $scope.arr[newVal.method] = newVal.message;
-                                            $scope.questionMessage = $scope.arr["sendExitMessage"];
-                                            $scope.methodType = newVal.method;
-                                            break;
-                                    }
-                                    console.log("ScopeUpdate si ++++++++++++++++++++++++", $scope.arr);
-                                }
-                            });
+                    function clearTimer() {
+                        $interval.cancel(game);
+                    }
 
 
-                            $scope.exitCurrentGame = function () {
-                                var playerObj = ($localStorage.gamePlayerInfo !== undefined) ? $localStorage.gamePlayerInfo : $rootScope.gameObj.data.result.playerId;
-                                playGameService.exitPlayer(playerObj.player, playerObj.gameTable, function (response) {
-                                    if (response.status == "success") {
-                                        alert("Player Exited");
-                                    } else {
-                                        alert("please try again later");
-                                    }
-                                });
-                            };
-
-                        }])
+                }])
             .directive('opponentsData', function ($parse, $localStorage) {
                 var directiveDefinitionObject = {
                     restrict: 'EA',
@@ -272,16 +212,11 @@
                         var exp = $parse(attr.questionData);
                         scope.$watchCollection(exp, function (newVal, oldVal) {
                             if (newVal !== undefined) {
-//                                var mathEle = $(el[0]).attr('id');
-//                                console.log("MATH", mathEle);
-//                                MathJax.Hub.Queue(["Typeset", MathJax.Hub, mathEle.find('#questionText')]);
-//                                MathJax.Hub.Queue(["Typeset", MathJax.Hub, mathEle.find('.answerBtn')]);
 
                                 var currentEvent = getCurrentEvent(newVal);
                                 scope.state = "";
                                 scope.stateMessage = "";
 //                                alert(typeof newVal);
-                                console.log("Question at Directive is ::::::::::::::::\n", typeof newVal, newVal);
                                 var newVal = (typeof newVal !== "string") ? JSON.parse(newVal) : newVal;
                                 var displayObject = getDisplayObject(newVal, currentEvent);
                                 console.log("Curretn Event", currentEvent);
